@@ -33,12 +33,7 @@ def index():
 def login():
     if request.method == 'POST':
         result = request.form
-
-        # Send POST request with parameters 'username' and 'password'. Verification has to be off since
-        # SSL certs are self-signed.
-        ack = requests.post("https://amiv-apidev.vsos.ethz.ch/sessions", data={"username" : str(result['nethz']), "password" : str(result['password'])}, verify=False)
-
-        print(ack._status)
+        ack = requests.post("https://amiv-apidev.vsos.ethz.ch/sessions", data={"user" : str(result['nethz']), "password" : str(result['password'])}, verify=False)
         if ack.status_code == 201:
             return render_template("admin.html")
         return render_template('login.html')
@@ -62,14 +57,24 @@ def signup():
             year = datetime.datetime.now().year
             result = request.form
             prename = str(result['prename'])
+            assert(len(prename) > 0)
+
             name = str(result['name'])
+            assert(len(name) > 0)
+
             mobile = str(result['mobile'])
+            assert(len(mobile) > 0)
+
             address = str(result['address'])
+            assert(len(address) > 0)
+
             email = str(result['mail'])
+            assert(len(mail) > 0)
+
             age = int(result['age'])
             gender = bool(result['gender'])
 
-        except Exception as e:
+        except AssertionError, ValueError as e:
             print(e)
 
             # TODO: Show actual error instead of redirectiing to an error page
