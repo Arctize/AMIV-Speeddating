@@ -47,6 +47,17 @@ def login():
 @app.route('/signup', methods=["GET", "POST"])
 def signup():
     if request.method == 'POST':
+
+        year = None
+        result = None
+        prename = None
+        name = None
+        mobile = None
+        address = None
+        email = None
+        age = None
+        gender = None
+
         try:
             year = datetime.datetime.now().year
             result = request.form
