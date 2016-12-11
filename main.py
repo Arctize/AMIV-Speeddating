@@ -3,12 +3,23 @@
 from flask import Flask, render_template, request
 from flask_sqlalchemy import SQLAlchemy
 from apps.models import Participants, TimeSlots
+from sqlalchemy import create_engine
 import requests
 import datetime
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:toor@localhost/Speeddating'
 db = SQLAlchemy(app)
+
+#eng = create_engine('mysql+pymysql://root:toor@localhost/Speeddating')
+#q = eng.execute('SHOW DATABASES')
+#available_tables = q.fetchall()
+#print(q)
+for instance in db.session.query(Participants).order_by(Participants.id):
+    print(instance.id, instance.Prename)
+
+query = db.session.query(Participants.Prename).order_by(Participants.id)
+print(query.all())
 
 # Creates tables only when they don't already exist so we can just leave this here
 db.create_all()
