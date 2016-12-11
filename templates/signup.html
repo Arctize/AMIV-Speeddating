@@ -31,7 +31,11 @@
 
 	<div class = "form-group">
 		<label for = "prename">(*) Vorname </label>
+		{% if prename %}
+		<input type = "text" class="form-control" name = "prename" value = {{prename}}>
+		{% else %}
 		<input type = "text" class="form-control" name = "prename">
+		{% endif %}
 	</div>
 
 	<div class = "form-group">

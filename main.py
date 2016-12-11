@@ -57,7 +57,7 @@ def signup():
             print(e)
 
             # TODO: Show actual error instead of redirectiing to an error page
-            return render_template('error.html')
+            return render_template('signup.html', retry=True, prename=prename, name=name, mobile=mobile, address=address, email=email, age=age, gender=gender)
 
         admin = Participants(name, prename, email, mobile, address, age, gender, year)
         db.session.add(admin)
